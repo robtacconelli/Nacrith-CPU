@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.png" alt="Nacrith">
+  <img src="assets/banner_cpu.png" alt="Nacrith">
 </p>
 
 <p align="center">
