@@ -6,7 +6,7 @@
   <a href="https://nacrith.com">Website</a> · <a href="assets/nacrith_paper_cpu.pdf">Technical Paper (PDF)</a> · <a href="https://huggingface.co/spaces/robtacconelli/Nacrith-CPU">Try on Hugging Face</a> · <a href="https://github.com/robtacconelli/Nacrith-GPU">GPU Version</a>
 </p>
 
-**Nacrith CPU** is a **state-of-the-art lossless text compression system** that combines precomputed n-gram probability tables with arithmetic coding. Unlike the original Nacrith GPU, which runs a 135M-parameter neural network at every token, Nacrith CPU replaces the LLM with **offline-built sparse trigram tables** — delivering **superior compression on non-repetitive text** with **zero GPU requirement** and **no inference cost**.
+**Nacrith CPU** is a **lossless text compression system** that combines precomputed n-gram probability tables with arithmetic coding. Unlike the original Nacrith GPU, which runs a 135M-parameter neural network at every token, Nacrith CPU replaces the LLM with **offline-built sparse trigram tables** — delivering **superior compression on non-repetitive text** with **zero GPU requirement** and **no inference cost**.
 
 The core insight remains the same: **compression is prediction** (Shannon, 1948). A good predictor of text can be turned into a good compressor. But instead of running a transformer for each prediction, Nacrith CPU looks up precomputed unigram, bigram, and trigram conditional probabilities from `.npz` tables, interpolates them with Katz-style backoff weights, and feeds the resulting distribution into a **C-accelerated arithmetic coder**. An adaptive layer accumulates per-document n-gram statistics during compression, gradually blending them in to capture document-specific patterns.
 
@@ -466,7 +466,7 @@ The per-token Python-level CDF construction and arithmetic coding loop is the bo
 **Ideal use cases:**
 - Archival compression of **English literature, articles, documentation, non-repetitive texts**
 - Offline compression where **maximum ratio matters more than speed**
-- Research and benchmarking: achieving **state-of-the-art text compression ratios**
+- Research and benchmarking: achieving **best text compression ratios** among the systems evaluated
 - Compressing **non-repetitive, unique text** (not templates or boilerplate)
 
 **Not ideal for:**
@@ -519,5 +519,5 @@ Apache License, Version 2.0. See [LICENSE](LICENSE) for details.
 
 ---
 
-**Nacrith CPU: State-of-the-art lossless compression for non-repetitive English text.**
+**Nacrith CPU: neural lossless compression for non-repetitive English text.**
 **100% win rate against lzma on classic literature. 18.7% average improvement.**
