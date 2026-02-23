@@ -6,6 +6,11 @@
   <a href="https://nacrith.com">Website</a> · <a href="assets/nacrith_paper_cpu.pdf">Technical Paper (PDF)</a> · <a href="https://huggingface.co/spaces/robtacconelli/Nacrith-CPU">Try on Hugging Face</a> · <a href="https://github.com/robtacconelli/Nacrith-GPU">GPU Version</a>
 </p>
 
+### This is still in development, code and results may change during time. The CPU implementation of Nacrith is different from GPU one. Refer to [Nacrith-GPU](https://huggingface.co/spaces/robtacconelli/Nacrith-GPU) if you're searching for the official and published version.
+
+--------
+
+
 **Nacrith CPU** is a **lossless text compression system** that combines precomputed n-gram probability tables with arithmetic coding. Unlike the original Nacrith GPU, which runs a 135M-parameter neural network at every token, Nacrith CPU replaces the LLM with **offline-built sparse trigram tables** — delivering **superior compression on non-repetitive text** with **zero GPU requirement** and **no inference cost**.
 
 The core insight remains the same: **compression is prediction** (Shannon, 1948). A good predictor of text can be turned into a good compressor. But instead of running a transformer for each prediction, Nacrith CPU looks up precomputed unigram, bigram, and trigram conditional probabilities from `.npz` tables, interpolates them with Katz-style backoff weights, and feeds the resulting distribution into a **C-accelerated arithmetic coder**. An adaptive layer accumulates per-document n-gram statistics during compression, gradually blending them in to capture document-specific patterns.
